@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CandidateViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+
+@foreach (var candid in Model)
+{
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4 class="card-title"> <a asp-route-id="@candid.candidateId" class="link-primary" asp-action="Details">@candid.fullName </a></h4>
+
+            <h6 class="card-subtitle mb-2 mt-2 text-muted">@candid.email</h6>
+            <p class="card-text ">
+                @{
+                    var gender = candid.gender == "0" ? "Male" : "Femail";
+                    var canSwim = candid.canSwim  ? "Yes" : "No";
+                  
+                }
+                @gender , <span class="text-muted">favorite music genre:</span> @candid.favoriteMusicGenre, <span class="text-muted">can swim:</span> @canSwim
+            </p>
+        </div>
+    </div>
+}

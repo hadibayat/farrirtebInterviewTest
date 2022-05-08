@@ -1,0 +1,67 @@
+﻿@model CandidateViewModel
+@{
+    ViewData["Title"] = "Candidate Details";
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-body" style="padding:50px 200px;">
+                        <img class="rounded-circle mb-2" src="@Model.profilePicture" alt="image" style="min-height:200px">
+                        <h4 class="card-title"> @Model.fullName </h4>
+                        <div class="p-3">
+                            <h6 class="card-subtitle mb-2 mt-2 text-muted">@Model.email</h6>
+                            @{
+                                var gender = Model.gender == "0" ? "Male" : "Femail";
+                                var canSwim = Model.canSwim ? "Yes" : "No";
+                            }
+                            <div class="text-left">
+                                @gender
+                                <div><span class="text-muted">favorite music genre:</span> @Model.favoriteMusicGenre</div>
+                                <span class="text-muted">can swim:</span> @canSwim
+
+                                <p class="mt-3">
+                                    <h4> Experinces:</h4>
+                                    @if (Model.experience.Count == 0)
+                                    {
+                                        <span> No Experience</span>
+                                    }
+                                    <ul>
+                                        @foreach (var ex in @Model.experience)
+                                        {
+                                            <li> <span> @ex.technologyName</span> : @ex.yearsOfExperience</li>
+                                        }
+                                    </ul>
+                                </p>
+
+                                <div class="mt-3">
+                                    @Html.Hidden("candidateId")
+                                    @if (Model.Status == CandidateStaus.None)
+                                    {
+                                        <button asp-action="Accept" class="btn btn-success">Accept</button>
+                                        <button asp-action="Reject" class="btn btn-danger">Reject</button>
+                                        <button asp-action="Index" class="btn btn-link">Return</button>
+                                    }
+                                    else
+                                    {
+                                        <button asp-action="Approved" class="btn btn-link">Return</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+
+
+
+</form>
